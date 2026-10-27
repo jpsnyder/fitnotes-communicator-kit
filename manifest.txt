@@ -1,0 +1,23 @@
+# manifest.txt — exact pins for the FitNotes Communicator mod deliverable
+# Every step in build.sh / AGENTS.md reads its expectations from here.
+
+# The ONE APK this mod is tuned for (Play package com.github.jamesgay.fitnotes,
+# versionName 25.1, versionCode 64). Different builds = different resource ids.
+SOURCE_APK_SHA256=3461836b0be6707f759470ff38c5059dda9776e03ce8691a209a6dfbc44abb89
+
+# Toolchain pins (decode output and smali layout depend on apktool version)
+APKTOOL_VERSION=3.0.3
+UBER_APK_SIGNER_VERSION=1.3.0
+
+# Decode sanity anchor: this line (exact resource id) must appear in
+# build/fitnotes-25.1-src/res/values/public.xml right after decoding
+DECODE_ANCHOR=<public type="layout" name="fragment_exercise_set" id="0x7f0b0073" />
+
+# Expected signer verdict (uber-apk-signer verify stage)
+SIGN_VERIFICATION=signature verified [v3]
+
+# Patch scope note:
+#   patches/fitnotes-communicator.patch should contain resource-only hunks
+#   (res/...) which are stable across apktool 3.x decodes of the pinned APK.
+#   Smali hunks, if present, require the exact pinned apktool version above
+#   — AGENTS.md marks any bytecod patch as conditional.
