@@ -7,6 +7,13 @@ Communicator (1080×1200, 9:10), verified via a Pixel 7a split-screen pane.
 The patch is diffs only: nothing here distributes FitNotes itself, a signature,
 or a keystore. Your build signs with your key, from your APK.
 
+## Target look
+
+![Track screen mock-up: current FitNotes (left) vs the Progression-style restyle (right), 1 px = 1 dp](assets/track-mockup.svg)
+
+> **This is a design mock-up, not a screenshot.** Generated during mod planning;
+> it will be swapped for a real on-device capture once the first build lands.
+
 ## What changes
 - input row compacted (WEIGHT/REPS side-by-side, smaller steppers + numerals)
 - history list pins to the bottom, newest set nearest the inputs
