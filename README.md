@@ -19,6 +19,11 @@ ratio (top pane of a Pixel 7a 50:50 split, 1080×1187 px ≈ 432×482 dp):
 
 ![Track screen at the Communicator ratio: 4 sets visible, inputs and CLEAR/SAVE pinned at the bottom](assets/track-screenshot-communicator.png)
 
+Before → after (left: stock 25.1, full screen; right: modded build at the
+Communicator ratio — sets on top, 50/50 inputs, secondary action left):
+
+![Before and after: stock FitNotes Track vs the modded Track](assets/track-before-after.png)
+
 ## What changes
 - input row compacted (WEIGHT/REPS side-by-side, smaller steppers + numerals)
 - history list pins to the bottom, newest set nearest the inputs
