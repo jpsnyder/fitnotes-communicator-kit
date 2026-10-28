@@ -14,6 +14,11 @@ or a keystore. Your build signs with your key, from your APK.
 > **This is a design mock-up, not a screenshot.** Generated during mod planning;
 > it will be swapped for a real on-device capture once the first build lands.
 
+The real thing — Track screen running the modded build at the Communicator
+ratio (top pane of a Pixel 7a 50:50 split, 1080×1187 px ≈ 432×482 dp):
+
+![Track screen at the Communicator ratio: 4 sets visible, inputs and CLEAR/SAVE pinned at the bottom](assets/track-screenshot-communicator.png)
+
 ## What changes
 - input row compacted (WEIGHT/REPS side-by-side, smaller steppers + numerals)
 - history list pins to the bottom, newest set nearest the inputs
