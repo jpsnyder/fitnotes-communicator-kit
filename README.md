@@ -9,18 +9,9 @@ or a keystore. Your build signs with your key, from your APK.
 
 ## Target look
 
-![Track screen mock-up: current FitNotes (left) vs the Progression-style restyle (right), 1 px = 1 dp](assets/track-mockup.svg)
-
-> **This is a design mock-up, not a screenshot.** Generated during mod planning;
-> it will be swapped for a real on-device capture once the first build lands.
-
-The real thing — Track screen running the modded build at the Communicator
-ratio (top pane of a Pixel 7a 50:50 split, 1080×1187 px ≈ 432×482 dp):
-
-![Track screen at the Communicator ratio: 4 sets visible, inputs and CLEAR/SAVE pinned at the bottom](assets/track-screenshot-communicator.png)
-
-Before → after (left: stock 25.1, full screen; right: modded build at the
-Communicator ratio — sets on top, 50/50 inputs, secondary action left):
+Before → after on the Track screen (left: stock 25.1 at full phone ratio;
+right: the modded build at the Communicator ratio — sets on top, 50/50
+inputs, secondary action left):
 
 ![Before and after: stock FitNotes Track vs the modded Track](assets/track-before-after.png)
 
