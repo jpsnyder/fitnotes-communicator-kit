@@ -1,0 +1,90 @@
+diff --git a/build/fitnotes-25.1-src/res/drawable/bg_input.xml b/build/fitnotes-25.1-src/res/drawable/bg_input.xml
+index 84f9062..9fedfa7 100644
+--- a/build/fitnotes-25.1-src/res/drawable/bg_input.xml
++++ b/build/fitnotes-25.1-src/res/drawable/bg_input.xml
+@@ -3,7 +3,7 @@
+   xmlns:android="http://schemas.android.com/apk/res/android"
+   android:insetLeft="12.0dp" android:insetTop="8.0dp" android:insetRight="12.0dp" android:insetBottom="8.0dp">
+     <shape android:shape="rectangle">
+-        <solid android:color="#1e232b" />
++        <solid android:color="#333333" />
+         <corners android:radius="10.0dp" />
+     </shape>
+ </inset>
+\ No newline at end of file
+diff --git a/build/fitnotes-25.1-src/res/values/colors.xml b/build/fitnotes-25.1-src/res/values/colors.xml
+index 110da55..47bbd10 100644
+--- a/build/fitnotes-25.1-src/res/values/colors.xml
++++ b/build/fitnotes-25.1-src/res/values/colors.xml
+@@ -2,7 +2,7 @@
+ <resources>
+     <color name="androidx_core_ripple_material_light">#1f000000</color>
+     <color name="androidx_core_secondary_text_default_material_light">#8a000000</color>
+-    <color name="background_dark">#0d0f14</color>
++    <color name="background_dark">#222222</color>
+     <color name="paint_positive">#3d6ff0</color>
+     <color name="paint_positive_pressed">#5b87f2</color>
+     <color name="paint_neutral">#23272e</color>
+diff --git a/build/fitnotes-25.1-src/res/values/styles.xml b/build/fitnotes-25.1-src/res/values/styles.xml
+index f5346b7..986c264 100644
+--- a/build/fitnotes-25.1-src/res/values/styles.xml
++++ b/build/fitnotes-25.1-src/res/values/styles.xml
+@@ -105,17 +105,17 @@
+         <item name="android:windowBackground">@drawable/window_background_dark</item>
+         <item name="android:actionBarStyle">@style/DarkActionBarStyle</item>
+         <item name="android:windowOptOutEdgeToEdgeEnforcement">true</item>
+-        <item name="fnAccentColor">#3d6ff0</item>
+-        <item name="fnAccentSoftColor">#593d6ff0</item>
+-        <item name="fnActionBarBackgroundColor">#161a21</item>
++        <item name="fnAccentColor">@color/holo_blue</item>
++        <item name="fnAccentSoftColor">@color/holo_blue_35_percent_alpha</item>
++        <item name="fnActionBarBackgroundColor">#222222</item>
+         <item name="fnBackgroundColor">@color/background_dark</item>
+         <item name="fnCalendarMonthViewStyle">@style/CalendarMonthViewStyle.Dark</item>
+         <item name="fnCardBackground">@drawable/card_background_dark</item>
+         <item name="fnCardSelectedBackground">@drawable/card_selected_dark</item>
+         <item name="fnCardSelector">@drawable/selector_card_dark</item>
+-        <item name="fnContainerColor">#161a21</item>
+-        <item name="fnContainerOnSpinnerPopupColor">#23272e</item>
+-        <item name="fnContainerOnSurfaceColor">#1e232b</item>
++        <item name="fnContainerColor">#333333</item>
++        <item name="fnContainerOnSpinnerPopupColor">#444444</item>
++        <item name="fnContainerOnSurfaceColor">#222222</item>
+         <item name="fnCroutonAlertBackground">@color/flat_red_dark</item>
+         <item name="fnCroutonConfirmBackground">@color/flat_turquoise_dark</item>
+         <item name="fnErrorColor">@color/flat_red_dark</item>
+@@ -124,24 +124,24 @@
+         <item name="fnInfoNoticeBackgroundColor">@color/flat_blue_dark</item>
+         <item name="fnNegativeButtonBackground">@color/flat_red_dark</item>
+         <item name="fnNegativeButtonPressedBackground">@color/flat_red</item>
+-        <item name="fnNeutralButtonBackground">@color/paint_neutral</item>
+-        <item name="fnNeutralButtonPressedBackground">@color/paint_neutral_pressed</item>
+-        <item name="fnPositiveButtonBackground">@color/paint_positive</item>
+-        <item name="fnPositiveButtonPressedBackground">@color/paint_positive_pressed</item>
++        <item name="fnNeutralButtonBackground">@color/flat_blue_dark</item>
++        <item name="fnNeutralButtonPressedBackground">@color/flat_blue</item>
++        <item name="fnPositiveButtonBackground">@color/flat_turquoise_dark</item>
++        <item name="fnPositiveButtonPressedBackground">@color/flat_turquoise</item>
+         <item name="fnRepMaxGridViewStyle">@style/RepMaxGridViewStyle.Dark</item>
+         <item name="fnSuccessColor">@color/flat_green_dark</item>
+-        <item name="fnSurfaceColor">#161a21</item>
+-        <item name="fnTextAccentColor">#3d6ff0</item>
++        <item name="fnSurfaceColor">#333333</item>
++        <item name="fnTextAccentColor">@color/holo_blue</item>
+         <item name="fnTextErrorColor">@color/flat_red</item>
+         <item name="fnTextLinkColor">@color/flat_blue</item>
+         <item name="fnTextMutedColor">#555555</item>
+         <item name="fnTextOnActionBarColor">#eeeeee</item>
+         <item name="fnTextOnInfoNoticeBackgroundColor">@color/white</item>
+-        <item name="fnTextPrimaryBoldColor">#e8eaed</item>
+-        <item name="fnTextPrimaryColor">#e8eaed</item>
+-        <item name="fnTextSecondaryColor">#9aa0a6</item>
++        <item name="fnTextPrimaryBoldColor">#eeeeee</item>
++        <item name="fnTextPrimaryColor">#eeeeee</item>
++        <item name="fnTextSecondaryColor">#cccccc</item>
+         <item name="fnTextSuccessColor">@color/flat_turquoise</item>
+-        <item name="fnTextTertiaryColor">#787f87</item>
++        <item name="fnTextTertiaryColor">#999999</item>
+     </style>
+     <style name="BaseAppLightTheme" parent="@android:style/Theme.Holo.Light.DarkActionBar">
+         <item name="android:windowBackground">@drawable/window_background_light</item>

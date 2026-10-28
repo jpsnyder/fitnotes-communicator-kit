@@ -1,0 +1,123 @@
+diff --git a/build/fitnotes-25.1-src/res/drawable/colour_button_negative.xml b/build/fitnotes-25.1-src/res/drawable/colour_button_negative.xml
+index c3c8cb4..15aeffc 100644
+--- a/build/fitnotes-25.1-src/res/drawable/colour_button_negative.xml
++++ b/build/fitnotes-25.1-src/res/drawable/colour_button_negative.xml
+@@ -4,14 +4,14 @@
+     <item android:state_pressed="true">
+         <shape>
+             <solid android:color="?fnNegativeButtonPressedBackground" />
+-            <corners android:radius="24.0dp" />
++            <corners android:radius="4.0dp" />
+             <padding android:left="10.0dp" android:top="10.0dp" android:right="10.0dp" android:bottom="10.0dp" />
+         </shape>
+     </item>
+     <item>
+         <shape>
+             <solid android:color="?fnNegativeButtonBackground" />
+-            <corners android:radius="24.0dp" />
++            <corners android:radius="4.0dp" />
+             <padding android:left="10.0dp" android:top="10.0dp" android:right="10.0dp" android:bottom="10.0dp" />
+         </shape>
+     </item>
+diff --git a/build/fitnotes-25.1-src/res/drawable/colour_button_neutral.xml b/build/fitnotes-25.1-src/res/drawable/colour_button_neutral.xml
+index f70fff7..601af06 100644
+--- a/build/fitnotes-25.1-src/res/drawable/colour_button_neutral.xml
++++ b/build/fitnotes-25.1-src/res/drawable/colour_button_neutral.xml
+@@ -4,14 +4,14 @@
+     <item android:state_pressed="true">
+         <shape>
+             <solid android:color="?fnNeutralButtonPressedBackground" />
+-            <corners android:radius="24.0dp" />
++            <corners android:radius="4.0dp" />
+             <padding android:left="10.0dp" android:top="10.0dp" android:right="10.0dp" android:bottom="10.0dp" />
+         </shape>
+     </item>
+     <item>
+         <shape>
+             <solid android:color="?fnNeutralButtonBackground" />
+-            <corners android:radius="24.0dp" />
++            <corners android:radius="4.0dp" />
+             <padding android:left="10.0dp" android:top="10.0dp" android:right="10.0dp" android:bottom="10.0dp" />
+         </shape>
+     </item>
+diff --git a/build/fitnotes-25.1-src/res/drawable/colour_button_positive.xml b/build/fitnotes-25.1-src/res/drawable/colour_button_positive.xml
+index a94fbc7..fcaee7b 100644
+--- a/build/fitnotes-25.1-src/res/drawable/colour_button_positive.xml
++++ b/build/fitnotes-25.1-src/res/drawable/colour_button_positive.xml
+@@ -4,14 +4,14 @@
+     <item android:state_pressed="true">
+         <shape>
+             <solid android:color="?fnPositiveButtonPressedBackground" />
+-            <corners android:radius="24.0dp" />
++            <corners android:radius="4.0dp" />
+             <padding android:left="10.0dp" android:top="10.0dp" android:right="10.0dp" android:bottom="10.0dp" />
+         </shape>
+     </item>
+     <item>
+         <shape>
+             <solid android:color="?fnPositiveButtonBackground" />
+-            <corners android:radius="24.0dp" />
++            <corners android:radius="4.0dp" />
+             <padding android:left="10.0dp" android:top="10.0dp" android:right="10.0dp" android:bottom="10.0dp" />
+         </shape>
+     </item>
+diff --git a/build/fitnotes-25.1-src/res/layout/fragment_exercise_set.xml b/build/fitnotes-25.1-src/res/layout/fragment_exercise_set.xml
+index 8fe8b3a..819dc06 100644
+--- a/build/fitnotes-25.1-src/res/layout/fragment_exercise_set.xml
++++ b/build/fitnotes-25.1-src/res/layout/fragment_exercise_set.xml
+@@ -8,7 +8,7 @@
+             <TextView android:id="@id/training_log_weight_label" android:textAllCaps="false" style="@style/FormDividerText" />
+             <LinearLayout style="@style/TrainingLogFieldContentContainer" android:layout_width="match_parent" android:layout_height="wrap_content">
+                 <ImageButton android:id="@id/training_log_decrease_weight" android:layout_width="40.0dp" android:layout_height="40.0dp" android:padding="0.0dp" android:scaleType="fitCenter" android:src="@drawable/ic_action_subtract" android:contentDescription="@string/training_log_decrease_weight_content_description" />
+-                <EditText android:id="@id/training_log_weight" style="@style/TrainingLogText" android:background="@drawable/bg_input" />
++                <EditText android:id="@id/training_log_weight" style="@style/TrainingLogText" />
+                 <ImageButton android:id="@id/training_log_increase_weight" android:layout_width="40.0dp" android:layout_height="40.0dp" android:padding="0.0dp" android:scaleType="fitCenter" android:src="@drawable/ic_action_add" android:contentDescription="@string/training_log_increase_weight_content_description" />
+             </LinearLayout>
+         </LinearLayout>
+@@ -16,14 +16,14 @@
+             <TextView android:text="@string/training_log_reps_label" style="@style/FormDividerText" />
+             <LinearLayout style="@style/TrainingLogFieldContentContainer" android:layout_width="match_parent" android:layout_height="wrap_content">
+                 <ImageButton android:id="@id/training_log_decrease_reps" android:layout_width="40.0dp" android:layout_height="40.0dp" android:padding="0.0dp" android:scaleType="fitCenter" android:src="@drawable/ic_action_subtract" android:contentDescription="@string/training_log_decrease_reps_content_description" />
+-                <EditText android:id="@id/training_log_reps" android:inputType="number" style="@style/TrainingLogText" android:background="@drawable/bg_input" />
++                <EditText android:id="@id/training_log_reps" android:inputType="number" style="@style/TrainingLogText" />
+                 <ImageButton android:id="@id/training_log_increase_reps" android:layout_width="40.0dp" android:layout_height="40.0dp" android:padding="0.0dp" android:scaleType="fitCenter" android:src="@drawable/ic_action_add" android:contentDescription="@string/training_log_increase_reps_content_description" />
+             </LinearLayout>
+         </LinearLayout>
+         <LinearLayout android:id="@id/training_log_distance_field_container" style="@style/TrainingLogFieldContainer" android:layout_width="0.0dp" android:layout_weight="1.0" android:layout_marginRight="@dimen/padding">
+             <TextView android:text="@string/training_log_distance_label" style="@style/FormDividerText" />
+             <LinearLayout style="@style/TrainingLogFieldContentContainer" android:layout_width="match_parent" android:layout_height="wrap_content">
+-                <EditText android:id="@id/training_log_distance" style="@style/TrainingLogText" android:background="@drawable/bg_input" />
++                <EditText android:id="@id/training_log_distance" style="@style/TrainingLogText" />
+                 <Spinner android:layout_gravity="bottom" android:id="@id/training_log_distance_units" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+             </LinearLayout>
+         </LinearLayout>
+diff --git a/build/fitnotes-25.1-src/res/layout/view_time_input.xml b/build/fitnotes-25.1-src/res/layout/view_time_input.xml
+index 666b22d..be4d12d 100644
+--- a/build/fitnotes-25.1-src/res/layout/view_time_input.xml
++++ b/build/fitnotes-25.1-src/res/layout/view_time_input.xml
+@@ -1,7 +1,7 @@
+ <?xml version="1.0" encoding="utf-8"?>
+ <LinearLayout android:id="@id/time_container" style="@style/TrainingLogFieldContentContainer"
+   xmlns:android="http://schemas.android.com/apk/res/android">
+-    <EditText android:id="@id/time_hours" android:hint="@string/training_log_time_hh" style="@style/TrainingLogTextTime" android:background="@drawable/bg_input" />
+-    <EditText android:id="@id/time_mins" android:hint="@string/training_log_time_mm" style="@style/TrainingLogTextTime" android:background="@drawable/bg_input" />
+-    <EditText android:id="@id/time_secs" android:hint="@string/training_log_time_ss" style="@style/TrainingLogTextTime" android:background="@drawable/bg_input" />
++    <EditText android:id="@id/time_hours" android:hint="@string/training_log_time_hh" style="@style/TrainingLogTextTime" />
++    <EditText android:id="@id/time_mins" android:hint="@string/training_log_time_mm" style="@style/TrainingLogTextTime" />
++    <EditText android:id="@id/time_secs" android:hint="@string/training_log_time_ss" style="@style/TrainingLogTextTime" />
+ </LinearLayout>
+diff --git a/build/fitnotes-25.1-src/res/values/styles.xml b/build/fitnotes-25.1-src/res/values/styles.xml
+index 986c264..f71e3b6 100644
+--- a/build/fitnotes-25.1-src/res/values/styles.xml
++++ b/build/fitnotes-25.1-src/res/values/styles.xml
+@@ -124,8 +124,8 @@
+         <item name="fnInfoNoticeBackgroundColor">@color/flat_blue_dark</item>
+         <item name="fnNegativeButtonBackground">@color/flat_red_dark</item>
+         <item name="fnNegativeButtonPressedBackground">@color/flat_red</item>
+-        <item name="fnNeutralButtonBackground">@color/flat_blue_dark</item>
+-        <item name="fnNeutralButtonPressedBackground">@color/flat_blue</item>
++        <item name="fnNeutralButtonBackground">@color/paint_neutral</item>
++        <item name="fnNeutralButtonPressedBackground">@color/paint_neutral_pressed</item>
+         <item name="fnPositiveButtonBackground">@color/flat_turquoise_dark</item>
+         <item name="fnPositiveButtonPressedBackground">@color/flat_turquoise</item>
+         <item name="fnRepMaxGridViewStyle">@style/RepMaxGridViewStyle.Dark</item>
