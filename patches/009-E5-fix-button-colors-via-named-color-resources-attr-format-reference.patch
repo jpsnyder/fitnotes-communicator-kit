@@ -1,0 +1,135 @@
+diff --git a/build/fitnotes-25.1-src/AndroidManifest.xml.orig b/build/fitnotes-25.1-src/AndroidManifest.xml.orig
+new file mode 100644
+index 0000000..939f2b4
+--- /dev/null
++++ b/build/fitnotes-25.1-src/AndroidManifest.xml.orig
+@@ -0,0 +1,95 @@
++<?xml version="1.0" encoding="utf-8"?>
++<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:compileSdkVersion="35" android:compileSdkVersionCodename="15" package="com.github.jamesgay.fitnotes" platformBuildVersionCode="35" platformBuildVersionName="15">
++    <uses-permission android:name="android.permission.VIBRATE"/>
++    <uses-permission android:name="android.permission.WAKE_LOCK"/>
++    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
++    <uses-permission android:name="android.permission.INTERNET"/>
++    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
++    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
++    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK"/>
++    <queries>
++        <package android:name="com.fitnotesapp.fitnotessupporter"/>
++    </queries>
++    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
++    <application android:allowBackup="true" android:appComponentFactory="androidx.core.app.CoreComponentFactory" android:dataExtractionRules="@xml/data_extraction_rules" android:extractNativeLibs="false" android:fullBackupContent="@xml/full_backup_content_rules" android:icon="@drawable/ic_launcher" android:label="@string/app_name" android:name="com.github.jamesgay.fitnotes.App" android:theme="@style/AppLightTheme">
++        <service android:exported="false" android:foregroundServiceType="mediaPlayback" android:name="com.github.jamesgay.fitnotes.feature.resttimer.RestTimerService"/>
++        <service android:name="com.github.jamesgay.fitnotes.util.AutomaticBackupJobIntentService" android:permission="android.permission.BIND_JOB_SERVICE"/>
++        <activity android:exported="true" android:label="@string/app_name" android:name="com.github.jamesgay.fitnotes.feature.home.MainActivity">
++            <intent-filter>
++                <action android:name="android.intent.action.MAIN"/>
++                <category android:name="android.intent.category.LAUNCHER"/>
++            </intent-filter>
++        </activity>
++        <activity android:name="com.github.jamesgay.fitnotes.feature.exercise.list.ExerciseListActivity" android:windowSoftInputMode="adjustResize"/>
++        <activity android:name="com.github.jamesgay.fitnotes.feature.exercise.addedit.ui.ExerciseAddEditActivity"/>
++        <activity android:name="com.github.jamesgay.fitnotes.feature.exercise.workout.TrainingLogActivity" android:parentActivityName="com.github.jamesgay.fitnotes.feature.home.MainActivity" android:screenOrientation="portrait">
++            <meta-data android:name="android.support.PARENT_ACTIVITY" android:value=".feature.home.MainActivity"/>
++        </activity>
++        <activity android:name="com.github.jamesgay.fitnotes.feature.settings.SettingsActivity"/>
++        <activity android:name="com.github.jamesgay.fitnotes.feature.calendar.CalendarActivity"/>
++        <activity android:name="com.github.jamesgay.fitnotes.feature.settings.CalculatePersonalRecordsActivity"/>
++        <activity android:name="com.github.jamesgay.fitnotes.feature.analysis.AnalysisActivity"/>
++        <activity android:name="com.github.jamesgay.fitnotes.feature.autobackup.AutomaticBackupActivity"/>
++        <activity android:name="com.github.jamesgay.fitnotes.feature.exercise.overview.ExerciseOverviewActivity"/>
++        <activity android:name="com.github.jamesgay.fitnotes.feature.exercise.graph.ExerciseGraphActivity"/>
++        <activity android:name="com.github.jamesgay.fitnotes.feature.exercise.stats.ExerciseStatsActivity"/>
++        <activity android:name="com.github.jamesgay.fitnotes.feature.measurement.MeasurementActivity"/>
++        <activity android:name="com.github.jamesgay.fitnotes.feature.measurement.list.MeasurementListActivity"/>
++        <provider android:authorities="com.github.jamesgay.fitnotes.fileprovider" android:exported="false" android:grantUriPermissions="true" android:name="androidx.core.content.FileProvider">
++            <meta-data android:name="android.support.FILE_PROVIDER_PATHS" android:resource="@xml/file_paths"/>
++        </provider>
++        <receiver android:name="com.github.jamesgay.fitnotes.util.AutomaticBackupBroadcastReceiver"/>
++        <activity android:excludeFromRecents="true" android:exported="false" android:name="com.google.android.gms.auth.api.signin.internal.SignInHubActivity" android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
++        <service android:exported="true" android:name="com.google.android.gms.auth.api.signin.RevocationBoundService" android:permission="com.google.android.gms.auth.api.signin.permission.REVOCATION_NOTIFICATION"/>
++        <activity android:exported="false" android:name="com.google.android.gms.common.api.GoogleApiActivity" android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
++        <meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version"/>
++        <provider android:authorities="com.github.jamesgay.fitnotes.androidx-startup" android:exported="false" android:name="androidx.startup.InitializationProvider">
++            <meta-data android:name="androidx.work.WorkManagerInitializer" android:value="androidx.startup"/>
++        </provider>
++        <service android:directBootAware="false" android:enabled="@bool/enable_system_alarm_service_default" android:exported="false" android:name="androidx.work.impl.background.systemalarm.SystemAlarmService"/>
++        <service android:directBootAware="false" android:enabled="@bool/enable_system_job_service_default" android:exported="true" android:name="androidx.work.impl.background.systemjob.SystemJobService" android:permission="android.permission.BIND_JOB_SERVICE"/>
++        <service android:directBootAware="false" android:enabled="@bool/enable_system_foreground_service_default" android:exported="false" android:name="androidx.work.impl.foreground.SystemForegroundService"/>
++        <receiver android:directBootAware="false" android:enabled="true" android:exported="false" android:name="androidx.work.impl.utils.ForceStopRunnable$BroadcastReceiver"/>
++        <receiver android:directBootAware="false" android:enabled="false" android:exported="false" android:name="androidx.work.impl.background.systemalarm.ConstraintProxy$BatteryChargingProxy">
++            <intent-filter>
++                <action android:name="android.intent.action.ACTION_POWER_CONNECTED"/>
++                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED"/>
++            </intent-filter>
++        </receiver>
++        <receiver android:directBootAware="false" android:enabled="false" android:exported="false" android:name="androidx.work.impl.background.systemalarm.ConstraintProxy$BatteryNotLowProxy">
++            <intent-filter>
++                <action android:name="android.intent.action.BATTERY_OKAY"/>
++                <action android:name="android.intent.action.BATTERY_LOW"/>
++            </intent-filter>
++        </receiver>
++        <receiver android:directBootAware="false" android:enabled="false" android:exported="false" android:name="androidx.work.impl.background.systemalarm.ConstraintProxy$StorageNotLowProxy">
++            <intent-filter>
++                <action android:name="android.intent.action.DEVICE_STORAGE_LOW"/>
++                <action android:name="android.intent.action.DEVICE_STORAGE_OK"/>
++            </intent-filter>
++        </receiver>
++        <receiver android:directBootAware="false" android:enabled="false" android:exported="false" android:name="androidx.work.impl.background.systemalarm.ConstraintProxy$NetworkStateProxy">
++            <intent-filter>
++                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
++            </intent-filter>
++        </receiver>
++        <receiver android:directBootAware="false" android:enabled="false" android:exported="false" android:name="androidx.work.impl.background.systemalarm.RescheduleReceiver">
++            <intent-filter>
++                <action android:name="android.intent.action.BOOT_COMPLETED"/>
++                <action android:name="android.intent.action.TIME_SET"/>
++                <action android:name="android.intent.action.TIMEZONE_CHANGED"/>
++            </intent-filter>
++        </receiver>
++        <receiver android:directBootAware="false" android:enabled="@bool/enable_system_alarm_service_default" android:exported="false" android:name="androidx.work.impl.background.systemalarm.ConstraintProxyUpdateReceiver">
++            <intent-filter>
++                <action android:name="androidx.work.impl.background.systemalarm.UpdateProxies"/>
++            </intent-filter>
++        </receiver>
++        <receiver android:directBootAware="false" android:enabled="true" android:exported="true" android:name="androidx.work.impl.diagnostics.DiagnosticsReceiver" android:permission="android.permission.DUMP">
++            <intent-filter>
++                <action android:name="androidx.work.diagnostics.REQUEST_DIAGNOSTICS"/>
++            </intent-filter>
++        </receiver>
++        <service android:directBootAware="true" android:exported="false" android:name="androidx.room.MultiInstanceInvalidationService"/>
++    </application>
++</manifest>
+diff --git a/build/fitnotes-25.1-src/res/values/colors.xml b/build/fitnotes-25.1-src/res/values/colors.xml
+index fa76ffa..110da55 100644
+--- a/build/fitnotes-25.1-src/res/values/colors.xml
++++ b/build/fitnotes-25.1-src/res/values/colors.xml
+@@ -3,6 +3,10 @@
+     <color name="androidx_core_ripple_material_light">#1f000000</color>
+     <color name="androidx_core_secondary_text_default_material_light">#8a000000</color>
+     <color name="background_dark">#0d0f14</color>
++    <color name="paint_positive">#3d6ff0</color>
++    <color name="paint_positive_pressed">#5b87f2</color>
++    <color name="paint_neutral">#23272e</color>
++    <color name="paint_neutral_pressed">#2a2f37</color>
+     <color name="background_light">#f3f3f3</color>
+     <color name="black">#000000</color>
+     <color name="common_google_signin_btn_text_dark_default">@android:color/white</color>
+diff --git a/build/fitnotes-25.1-src/res/values/styles.xml b/build/fitnotes-25.1-src/res/values/styles.xml
+index 1ae25bb..f5346b7 100644
+--- a/build/fitnotes-25.1-src/res/values/styles.xml
++++ b/build/fitnotes-25.1-src/res/values/styles.xml
+@@ -124,10 +124,10 @@
+         <item name="fnInfoNoticeBackgroundColor">@color/flat_blue_dark</item>
+         <item name="fnNegativeButtonBackground">@color/flat_red_dark</item>
+         <item name="fnNegativeButtonPressedBackground">@color/flat_red</item>
+-        <item name="fnNeutralButtonBackground">#23272e</item>
+-        <item name="fnNeutralButtonPressedBackground">#2a2f37</item>
+-        <item name="fnPositiveButtonBackground">#3d6ff0</item>
+-        <item name="fnPositiveButtonPressedBackground">#5b87f2</item>
++        <item name="fnNeutralButtonBackground">@color/paint_neutral</item>
++        <item name="fnNeutralButtonPressedBackground">@color/paint_neutral_pressed</item>
++        <item name="fnPositiveButtonBackground">@color/paint_positive</item>
++        <item name="fnPositiveButtonPressedBackground">@color/paint_positive_pressed</item>
+         <item name="fnRepMaxGridViewStyle">@style/RepMaxGridViewStyle.Dark</item>
+         <item name="fnSuccessColor">@color/flat_green_dark</item>
+         <item name="fnSurfaceColor">#161a21</item>
