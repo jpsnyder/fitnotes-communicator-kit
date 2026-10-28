@@ -68,18 +68,27 @@ grep -F "$(grep '^DECODE_ANCHOR=' manifest.txt | cut -d= -f2-)" "$DECODE_DIR/res
            (wrong APK? resource obfuscation not restored? wrong apktool version?)"
 echo "decode sanity check OK (public.xml has clean layout names)"
 
-# ---- step 4: patch ----------------------------------------------------------
-step "4. apply mod patch"
-PATCH="patches/fitnotes-communicator.patch"
-[ -s "$PATCH" ] || fail "$PATCH missing or empty — the mod is not attached
+# ---- step 4: patch (per-edit series, applied in filename/number order) ------
+step "4. apply mod patch series"
+shopt -s nullglob
+PATCH_FILES=(patches/0*.patch)   # NNN-<edit-id>.patch, zero-padded → glob IS edit order
+shopt -u nullglob
+[ ${#PATCH_FILES[@]} -gt 0 ] || fail "patches/0*.patch missing — the mod is not attached
   (regenerate patches with the repo's make-deliverable.sh)"
 SUM_BEFORE=$(cd "$DECODE_DIR" && find res -type f -exec sha256sum {} + | sha256sum | cut -d' ' -f1)
-patch -p1 -i "$PATCH" || fail "patch rejected. The decoded tree did not match the
-  patch context (wrong APK build, or a different apktool produced the decode).
-  Do NOT retry with fuzz; report the reject list above."
+for PATCH_FILE in "${PATCH_FILES[@]}"; do
+  [ -s "$PATCH_FILE" ] || fail "$PATCH_FILE is empty — regenerate the series
+    with the repo's make-deliverable.sh"
+  echo "applying: $PATCH_FILE"
+  patch -p1 -i "$PATCH_FILE" || fail "patch rejected ($PATCH_FILE). The decoded tree did not match
+  the patch context (wrong APK build, or a different apktool produced the
+  decode). Do NOT retry with fuzz; report the reject list above.
+  NOTE: series apply strictly in order — partial failures mean the base tree
+  is mismatched, not the individual edit."
+done
 SUM_AFTER=$(cd "$DECODE_DIR" && find res -type f -exec sha256sum {} + | sha256sum | cut -d' ' -f1)
-[ "$SUM_BEFORE" != "$SUM_AFTER" ] || fail "patch applied cleanly but changed
-  nothing under res/ — an empty or vestigial patch. This silent no-op build is
+[ "$SUM_BEFORE" != "$SUM_AFTER" ] || fail "patches applied cleanly but changed
+  nothing under res/ — an empty or vestigial series. This silent no-op build is
   exactly what we must never ship. Report to the patch author."
 
 # ---- step 5: rebuild --------------------------------------------------------

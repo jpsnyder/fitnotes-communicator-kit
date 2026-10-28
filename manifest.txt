@@ -17,7 +17,8 @@ DECODE_ANCHOR=<public type="layout" name="fragment_exercise_set" id="0x7f0b0073"
 SIGN_VERIFICATION=signature verified [v3]
 
 # Patch scope note:
-#   patches/fitnotes-communicator.patch should contain resource-only hunks
-#   (res/...) which are stable across apktool 3.x decodes of the pinned APK.
-#   Smali hunks, if present, require the exact pinned apktool version above
+#   patches/0NN-*.patch (the per-edit series, applied in filename order) should
+#   contain resource-only hunks (res/...) which are stable across apktool 3.x
+#   decodes of the pinned APK.   Smali hunks, if present, require the exact
+#   pinned apktool version above
 #   — AGENTS.md marks any bytecod patch as conditional.
