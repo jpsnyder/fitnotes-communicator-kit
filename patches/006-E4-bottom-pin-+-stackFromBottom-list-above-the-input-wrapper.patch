@@ -1,0 +1,19 @@
+diff --git a/build/fitnotes-25.1-src/res/layout/fragment_exercise_set.xml b/build/fitnotes-25.1-src/res/layout/fragment_exercise_set.xml
+index b13118d..c50ec20 100644
+--- a/build/fitnotes-25.1-src/res/layout/fragment_exercise_set.xml
++++ b/build/fitnotes-25.1-src/res/layout/fragment_exercise_set.xml
+@@ -2,6 +2,7 @@
+ <LinearLayout android:orientation="vertical" android:id="@id/training_log_container" android:paddingLeft="@dimen/padding_double" android:paddingRight="@dimen/padding_double" android:focusable="true" android:focusableInTouchMode="true" android:layout_width="match_parent" android:layout_height="match_parent"
+   xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+     <requestFocus />
++    <com.github.jamesgay.fitnotes.feature.common.view.dragsortlistview.DragSortListView android:id="@id/training_log_list" android:layout_width="match_parent" android:layout_height="0.0dp" android:layout_marginTop="@dimen/margin_small" android:stackFromBottom="true" android:listSelector="@color/transparent" android:layout_weight="1.0" app:drag_start_mode="onLongPress" app:float_alpha="0.6" app:float_background_color="@android:color/transparent" app:slide_shuffle_speed="0.3" />
+     <LinearLayout android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="wrap_content">
+         <LinearLayout android:id="@id/training_log_weight_field_container" style="@style/TrainingLogFieldContainer" android:layout_width="0.0dp" android:layout_weight="1.0" android:layout_marginRight="@dimen/padding">
+             <TextView android:id="@id/training_log_weight_label" android:textAllCaps="false" style="@style/FormDividerText" />
+@@ -43,5 +44,4 @@
+         <TextView android:id="@id/training_log_update_button" android:background="@drawable/colour_button_positive" android:text="@string/update" style="@style/TrainingLogButton" />
+         <TextView android:id="@id/training_log_delete_button" android:background="@drawable/colour_button_negative" android:text="@string/delete" style="@style/TrainingLogButton" />
+     </LinearLayout>
+-    <com.github.jamesgay.fitnotes.feature.common.view.dragsortlistview.DragSortListView android:id="@id/training_log_list" android:layout_width="match_parent" android:layout_height="0.0dp" android:layout_marginTop="@dimen/margin_small" android:listSelector="@color/transparent" android:layout_weight="1.0" app:drag_start_mode="onLongPress" app:float_alpha="0.6" app:float_background_color="@android:color/transparent" app:slide_shuffle_speed="0.3" />
+ </LinearLayout>
+\ No newline at end of file
