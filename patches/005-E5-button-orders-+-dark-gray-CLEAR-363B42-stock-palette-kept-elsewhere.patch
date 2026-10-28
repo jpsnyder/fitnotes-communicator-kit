@@ -1,0 +1,57 @@
+diff --git a/build/fitnotes-25.1-src/res/layout/fragment_exercise_set.xml b/build/fitnotes-25.1-src/res/layout/fragment_exercise_set.xml
+index 141094e..d896a81 100644
+--- a/build/fitnotes-25.1-src/res/layout/fragment_exercise_set.xml
++++ b/build/fitnotes-25.1-src/res/layout/fragment_exercise_set.xml
+@@ -33,15 +33,15 @@
+     </LinearLayout>
+     <LinearLayout android:id="@id/training_log_time_field_container" style="@style/TrainingLogFieldContainer">
+         <TextView android:text="@string/training_log_time_label" android:textAllCaps="false" style="@style/FormDividerText" />
+-        <include layout="@layout/form_divider" />
++            <include layout="@layout/form_divider" />
+         <com.github.jamesgay.fitnotes.feature.common.view.TimeInputView android:id="@id/training_log_time" android:layout_width="match_parent" android:layout_height="wrap_content" />
+     </LinearLayout>
+     <LinearLayout android:id="@id/training_log_save_set_button_container" style="@style/TrainingLogButtonContainer">
+-        <TextView android:id="@id/training_log_save_button" android:background="@drawable/colour_button_positive" android:text="@string/save" style="@style/TrainingLogButton" />
+         <TextView android:id="@id/training_log_clear_button" android:background="@drawable/colour_button_neutral" android:text="@string/clear" style="@style/TrainingLogButton" />
++        <TextView android:id="@id/training_log_save_button" android:background="@drawable/colour_button_positive" android:text="@string/save" style="@style/TrainingLogButton" />
+     </LinearLayout>
+     <LinearLayout android:id="@id/training_log_update_set_button_container" android:visibility="gone" style="@style/TrainingLogButtonContainer">
+-        <TextView android:id="@id/training_log_update_button" android:background="@drawable/colour_button_positive" android:text="@string/update" style="@style/TrainingLogButton" />
+         <TextView android:id="@id/training_log_delete_button" android:background="@drawable/colour_button_negative" android:text="@string/delete" style="@style/TrainingLogButton" />
++        <TextView android:id="@id/training_log_update_button" android:background="@drawable/colour_button_positive" android:text="@string/update" style="@style/TrainingLogButton" />
+     </LinearLayout>
+ </LinearLayout>
+\ No newline at end of file
+diff --git a/build/fitnotes-25.1-src/res/values/colors.xml b/build/fitnotes-25.1-src/res/values/colors.xml
+index be685dd..238f18d 100644
+--- a/build/fitnotes-25.1-src/res/values/colors.xml
++++ b/build/fitnotes-25.1-src/res/values/colors.xml
+@@ -3,6 +3,8 @@
+     <color name="androidx_core_ripple_material_light">#1f000000</color>
+     <color name="androidx_core_secondary_text_default_material_light">#8a000000</color>
+     <color name="background_dark">#222222</color>
++    <color name="paint_neutral">#363b42</color>
++    <color name="paint_neutral_pressed">#414750</color>
+     <color name="background_light">#f3f3f3</color>
+     <color name="black">#000000</color>
+     <color name="common_google_signin_btn_text_dark_default">@android:color/white</color>
+@@ -36,3 +38,4 @@
+     <color name="transparent">#00000000</color>
+     <color name="white">#ffffff</color>
+ </resources>
++
+diff --git a/build/fitnotes-25.1-src/res/values/styles.xml b/build/fitnotes-25.1-src/res/values/styles.xml
+index 986c264..f71e3b6 100644
+--- a/build/fitnotes-25.1-src/res/values/styles.xml
++++ b/build/fitnotes-25.1-src/res/values/styles.xml
+@@ -124,8 +124,8 @@
+         <item name="fnInfoNoticeBackgroundColor">@color/flat_blue_dark</item>
+         <item name="fnNegativeButtonBackground">@color/flat_red_dark</item>
+         <item name="fnNegativeButtonPressedBackground">@color/flat_red</item>
+-        <item name="fnNeutralButtonBackground">@color/flat_blue_dark</item>
+-        <item name="fnNeutralButtonPressedBackground">@color/flat_blue</item>
++        <item name="fnNeutralButtonBackground">@color/paint_neutral</item>
++        <item name="fnNeutralButtonPressedBackground">@color/paint_neutral_pressed</item>
+         <item name="fnPositiveButtonBackground">@color/flat_turquoise_dark</item>
+         <item name="fnPositiveButtonPressedBackground">@color/flat_turquoise</item>
+         <item name="fnRepMaxGridViewStyle">@style/RepMaxGridViewStyle.Dark</item>
