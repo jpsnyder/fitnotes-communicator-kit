@@ -43,6 +43,6 @@ your device without your confirmation.
 | `AGENTS.md` | agent-facing full procedure + safety gates |
 | `build.sh` | decode → patch → rebuild → sign, fail-loud, idempotent |
 | `manifest.txt` | pinned APK/tools checksums and expectations |
-| `patches/` | the mod: `fitnotes-communicator.patch` (single diff) + per-edit series |
+| `patches/` | the mod: `fitnotes-communicator.patch` (single diff) + per-edit series — bare unified diffs of the decoded APK tree only, no authorship metadata |
 
 Personal use only. Don't redistribute signed builds or your keystore.
