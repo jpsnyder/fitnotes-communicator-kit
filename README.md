@@ -34,6 +34,13 @@ YouTube wiring), human-readable.
 # once: a JDK (java + keytool), patch, curl
 bash build.sh "/path/to/FitNotes - Gym Workout Log_25.1_APKPure.apk"
 # -> dist/fitnotes-modded-aligned-signed.apk
+
+# optional — select mods (default: all). Patch hunks chain together, so
+# selection is by named group, not per-patch:
+#   MODS="youtube"      → stock layout, only the "Search YouTube" overflow item
+#   MODS="communicator" → compact Track screen + restyle, no YouTube item
+#   MODS="communicator youtube"   (= default)
+MODS="youtube" bash build.sh "/path/to/FitNotes-25.1.apk"
 ```
 Then: export your data in-app and copy it off-device → uninstall FitNotes →
 install the built APK → in-app Restore. (Uninstalling wipes the local database;

@@ -3,6 +3,8 @@
 # Written to fail loudly: every step verifies its own output before continuing.
 #
 # Usage:   bash build.sh "/path/to/FitNotes - Gym Workout Log_25.1_APKPure.apk"
+#          MODS="youtube" bash build.sh ...        # stock + Search YouTube only
+#          MODS="communicator" bash build.sh ...   # layout mods only, no YouTube
 # Result:  dist/fitnotes-modded-aligned-signed.apk   (installable)
 #
 # Data-losing steps (uninstall/reinstall) are NOT run by this script — see
@@ -68,15 +70,67 @@ grep -F "$(grep '^DECODE_ANCHOR=' manifest.txt | cut -d= -f2-)" "$DECODE_DIR/res
            (wrong APK? resource obfuscation not restored? wrong apktool version?)"
 echo "decode sanity check OK (public.xml has clean layout names)"
 
-# ---- step 4: patch (per-edit series, applied in filename/number order) ------
+# ---- step 4: patch (mod-group selection) ------------------------------------
 step "4. apply mod patch series"
 shopt -s nullglob
-PATCH_FILES=(patches/0*.patch)   # NNN-<edit-id>.patch, zero-padded → glob IS edit order
+ALL_PATCHES=(patches/0*.patch)   # NNN-<edit-id>.patch, zero-padded → glob IS edit order
 shopt -u nullglob
-[ ${#PATCH_FILES[@]} -gt 0 ] || fail "patches/0*.patch missing — the mod is not attached
+[ ${#ALL_PATCHES[@]} -gt 0 ] || fail "patches/0*.patch missing — the mod is not attached
   (regenerate patches with the repo's make-deliverable.sh)"
+
+id_of() { basename "$1" | cut -d- -f1; }
+
+# ---- mod groups -------------------------------------------------------------
+# Patches that chain together (later hunks authored against the earlier ones'
+# output) are ONE selectable unit — they are never individually selectable:
+#   communicator = 001–006  E1–E5 + stepper-glyph: the compact Track screen +
+#                           restyle; entangled hunks in the same layout files
+#                           (E5's divider/button hunks assume E3/E4's edits)
+#   youtube      = 007      E12 overflow "Search YouTube"; independent of the
+#                           layout chain (touch-only disjoint files); verified
+#                           standalone 30 Oct 2026.
+# Every selectable SET below was proven by a scratch build before being baked
+# in. New edits: join a group if their hunks depend on its output, else add a
+# new group — then scratch-verify before shipping.
+# Selectable sets: "" / "all" / any subset of ${MOD_GROUPS[*]}.
+GROUP_PATCHES_communicator="001 002 003 004 005 006"
+GROUP_PATCHES_youtube="007"
+MOD_GROUPS=(communicator youtube)
+
+SELECTED=()
+KIND="all groups (default)"
+if [ "${MODS:-}" = "" ] || [ "${MODS:-}" = "all" ]; then
+  SELECTED=("${ALL_PATCHES[@]}")
+else
+  declare -A WANTID=() GOTTEN=()
+  KIND_SEL=""
+  for tok in ${MODS//,/ }; do
+    known=0
+    for g in "${MOD_GROUPS[@]}"; do
+      if [ "$tok" = "$g" ]; then known=1; fi
+    done
+    if [ $known -eq 0 ]; then
+      fail "MODS token '$tok' is not a known mod group (valid: ${MOD_GROUPS[*]})"
+    fi
+    if [ -n "${GOTTEN[$tok]:-}" ]; then continue; fi
+    GOTTEN["$tok"]=1
+    if [ -n "$KIND_SEL" ]; then KIND_SEL="$KIND_SEL + $tok"; else KIND_SEL="$tok"; fi
+    ids_var="GROUP_PATCHES_$tok"
+    for id in ${!ids_var}; do WANTID["$id"]=1; done
+  done
+  for f in "${ALL_PATCHES[@]}"; do
+    id=$(id_of "$f")
+    if [ -n "${WANTID[$id]:-}" ]; then SELECTED+=("$f"); unset "WANTID[$id]"; fi
+  done
+  if [ ${#SELECTED[@]} -eq 0 ] || [ ${#WANTID[@]} -ne 0 ]; then
+    fail "MODS='$MODS' does not map fully onto patches/ — check the group table"
+  fi
+  KIND="groups: $KIND_SEL"
+fi
+echo "mods: $KIND (patches: ${#SELECTED[@]}/${#ALL_PATCHES[@]})"
+
 SUM_BEFORE=$(cd "$DECODE_DIR" && find res -type f -exec sha256sum {} + | sha256sum | cut -d' ' -f1)
-for PATCH_FILE in "${PATCH_FILES[@]}"; do
+for PATCH_FILE in "${SELECTED[@]}"; do
   [ -s "$PATCH_FILE" ] || fail "$PATCH_FILE is empty — regenerate the series
     with the repo's make-deliverable.sh"
   echo "applying: $PATCH_FILE"
