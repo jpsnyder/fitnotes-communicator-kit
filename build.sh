@@ -83,19 +83,24 @@ id_of() { basename "$1" | cut -d- -f1; }
 # ---- mod groups -------------------------------------------------------------
 # Patches that chain together (later hunks authored against the earlier ones'
 # output) are ONE selectable unit — they are never individually selectable:
+#   compact      = 001–002  dimens diet + type-size/stepper cap only (no layout
+#                           rearrangement, no restyle, no glyph shrink)
 #   communicator = 001–006  E1–E5 + stepper-glyph: the compact Track screen +
 #                           restyle; entangled hunks in the same layout files
-#                           (E5's divider/button hunks assume E3/E4's edits)
+#                           (E5's divider/button hunks assume E3/E4's edits;
+#                           006's glyph hunk anchors on E3's wrapper region)
 #   youtube      = 007      E12 overflow "Search YouTube"; independent of the
 #                           layout chain (touch-only disjoint files); verified
 #                           standalone 30 Oct 2026.
+# Group sets may overlap: MODS="compact communicator" = communicator's set.
 # Every selectable SET below was proven by a scratch build before being baked
-# in. New edits: join a group if their hunks depend on its output, else add a
-# new group — then scratch-verify before shipping.
+# in (compact 30 Oct 2026). New edits: join a group if their hunks depend on
+# its output, else add a new group — then scratch-verify before shipping.
 # Selectable sets: "" / "all" / any subset of ${MOD_GROUPS[*]}.
+GROUP_PATCHES_compact="001 002"
 GROUP_PATCHES_communicator="001 002 003 004 005 006"
 GROUP_PATCHES_youtube="007"
-MOD_GROUPS=(communicator youtube)
+MOD_GROUPS=(compact communicator youtube)
 
 SELECTED=()
 KIND="all groups (default)"

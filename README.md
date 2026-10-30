@@ -37,9 +37,10 @@ bash build.sh "/path/to/FitNotes - Gym Workout Log_25.1_APKPure.apk"
 
 # optional — select mods (default: all). Patch hunks chain together, so
 # selection is by named group, not per-patch:
-#   MODS="youtube"      → stock layout, only the "Search YouTube" overflow item
-#   MODS="communicator" → compact Track screen + restyle, no YouTube item
-#   MODS="communicator youtube"   (= default)
+#   MODS="compact"       → sizes+spacing diet only (padding, smaller type/steppers)
+#   MODS="youtube"       → stock layout, only the "Search YouTube" overflow item
+#   MODS="communicator"  → compact Track screen + restyle (+sizes)
+#   MODS="compact youtube" / "compact communicator" / "communicator youtube" / all
 MODS="youtube" bash build.sh "/path/to/FitNotes-25.1.apk"
 ```
 Then: export your data in-app and copy it off-device → uninstall FitNotes →
