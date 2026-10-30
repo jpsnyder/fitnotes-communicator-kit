@@ -56,7 +56,7 @@ root — use a `toolbox`/`distrobox` container (Fedora base is fine):
 bash build.sh "/absolute/path/to/FitNotes - Gym Workout Log_25.1_APKPure.apk"
 ```
 Optional subset builds: `MODS="compact"` (padding+type diet only), `MODS="communicator"`,
-`MODS="youtube"`, or any combo of these groups — see the group table inside
+`MODS="youtube"`, `MODS="haptics"`, or any combo of these groups — see the group table inside
 `build.sh`. Patches within a group chain and are never individually selectable;
 only these vetted groups/combos are accepted, everything else refuses loudly.
 The script performs everything below itself and is the source of truth for

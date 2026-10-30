@@ -38,7 +38,7 @@ inputs, secondary action left):
 - [ ] keyboard focus chain
 - [ ] Enter-to-save
 - [ ] hardware-keyboard shortcuts
-- [ ] stepper haptic feedback
+- [x] stepper haptic feedback (E11 — tick on the one shared click listener; long-press auto-repeat intentionally silent)
 
 ![Track screen overflow menu: calculators + Search YouTube](assets/track-youtube-menu.png)
 
@@ -56,9 +56,10 @@ by **named group** — not per-patch, and not arbitrary. `build.sh` accepts
 | `compact` | 001–002 | sizes + spacing diet only; every layout detail stays stock |
 | `communicator` | 001–006 | the compact near-square Track screen + restyle (includes `compact`) |
 | `youtube` | 007 | the "Search YouTube" overflow item; independent of any layout |
+| `haptics` | 008 | a light tick (CLOCK_TICK) on every +/- stepper tap; tap-only — long-press auto-repeat stays silent; independent of any layout |
 
 - default (`MODS` unset, or `all`) applies everything
-- combinations work freely: `MODS="compact youtube"`, `MODS="communicator youtube"`…
+- combinations work freely: `MODS="youtube haptics"`, `MODS="compact youtube"`, `MODS="communicator youtube"`…
 - anything not in the table (`MODS="banana"`, raw patch numbers, untested
   combos) **fails loudly** before touching anything
 

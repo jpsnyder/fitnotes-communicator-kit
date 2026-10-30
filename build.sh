@@ -92,6 +92,9 @@ id_of() { basename "$1" | cut -d- -f1; }
 #   youtube      = 007      E12 overflow "Search YouTube"; independent of the
 #                           layout chain (touch-only disjoint files); verified
 #                           standalone 30 Oct 2026.
+#   haptics      = 008      E11 CLOCK_TICK tick on the shared stepper click
+#                           listener (D0/a$b$a) — every +/- tap app-wide;
+#                           disjoint smali, hunks anchor on pristine.
 # Group sets may overlap: MODS="compact communicator" = communicator's set.
 # Every selectable SET below was proven by a scratch build before being baked
 # in (compact 30 Oct 2026). New edits: join a group if their hunks depend on
@@ -100,7 +103,8 @@ id_of() { basename "$1" | cut -d- -f1; }
 GROUP_PATCHES_compact="001 002"
 GROUP_PATCHES_communicator="001 002 003 004 005 006"
 GROUP_PATCHES_youtube="007"
-MOD_GROUPS=(compact communicator youtube)
+GROUP_PATCHES_haptics="008"
+MOD_GROUPS=(compact communicator youtube haptics)
 
 SELECTED=()
 KIND="all groups (default)"
