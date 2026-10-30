@@ -1,11 +1,12 @@
-# FitNotes — Clicks Communicator mod (installable patch)
+# FitNotes — Communicator kit (installable patch)
 
-A patch that rebuilds **your own copy** of FitNotes 25.1 with a compact,
-bottom-pinned Track screen for near-square displays — first target: the Clicks
-Communicator (1080×1200, 9:10), verified via a Pixel 7a split-screen pane.
+Patches that rebuild **your own copy** of FitNotes 25.1 with **selectable
+mods**: a compact Track screen tuned for near-square displays — first target
+the Clicks Communicator (1080×1200, 9:10), verified via a Pixel 7a
+split-screen pane — and a YouTube search shortcut for every exercise.
 
-The patch is diffs only: nothing here distributes FitNotes itself, a signature,
-or a keystore. Your build signs with your key, from your APK.
+The patches are diffs only: nothing here distributes FitNotes itself, a
+signature, or a keystore. Your build signs with your key, from your APK.
 
 ## Target look
 
@@ -16,18 +17,41 @@ inputs, secondary action left):
 ![Before and after: stock FitNotes Track vs the modded Track](assets/track-before-after.png)
 
 ## What changes
-- input row compacted (WEIGHT/REPS side-by-side, smaller steppers + numerals)
-- history list pins to the bottom, newest set nearest the inputs
-- tighter global spacing; Progression-style dark restyle
+
+With the default build (every group applied):
+- sizes + spacing diet: tighter paddings, smaller numerals, capped steppers
+  → **`compact`**
+- WEIGHT/REPS share one side-by-side row; the history list moves above the
+  input row so the inputs pin to the window bottom → **`communicator`**
+- secondary action goes left, CLEAR dimmed gray; palette otherwise stock
+  → **`communicator`**
 - Track toolbar overflow gains **"Search YouTube"** — opens a YouTube search
   for that exercise's name, built at runtime (renames/new exercises just
-  work; also works on an unpatched stock layout)
-- (optional, conditional) sets auto-mark complete on save/update
+  work; also works on an unpatched stock layout) → **`youtube`**
+- planned but **not in this series yet**: auto-mark sets complete on
+  save/update
 
 ![Track screen overflow menu: calculators + Search YouTube](assets/track-youtube-menu.png)
 
 See `patches/*.patch` for every hunk — plain XML (+ a little smali for the
 YouTube wiring), human-readable.
+
+## Picking your mods
+
+Patch hunks chain together (later hunks assume earlier ones), so selection is
+by **named group** — not per-patch, and not arbitrary. `build.sh` accepts
+`MODS="group [group ...]"`; the result is the union of the groups:
+
+| `MODS=` group | patches | gives you |
+|---|---|---|
+| `compact` | 001–002 | sizes + spacing diet only; every layout detail stays stock |
+| `communicator` | 001–006 | the compact near-square Track screen + restyle (includes `compact`) |
+| `youtube` | 007 | the "Search YouTube" overflow item; independent of any layout |
+
+- default (`MODS` unset, or `all`) applies everything
+- combinations work freely: `MODS="compact youtube"`, `MODS="communicator youtube"`…
+- anything not in the table (`MODS="banana"`, raw patch numbers, untested
+  combos) **fails loudly** before touching anything
 
 ## Quick start (humans)
 ```sh
@@ -56,7 +80,7 @@ your device without your confirmation.
 | file | purpose |
 |---|---|
 | `AGENTS.md` | agent-facing full procedure + safety gates |
-| `build.sh` | decode → patch → rebuild → sign, fail-loud, idempotent |
+| `build.sh` | decode → group-selected patch → rebuild → sign, fail-loud, idempotent |
 | `manifest.txt` | pinned APK/tools checksums and expectations |
 | `patches/` | the mod: per-edit series `0NN-<edit-id>.patch` — bare unified diffs of the decoded APK tree only, applied in filename order, no authorship metadata |
 
