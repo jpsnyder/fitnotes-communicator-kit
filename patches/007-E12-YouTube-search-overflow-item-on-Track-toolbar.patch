@@ -1,0 +1,99 @@
+diff --git a/build/fitnotes-25.1-src/res/menu/activity_training_log.xml b/build/fitnotes-25.1-src/res/menu/activity_training_log.xml
+index d807c2a..152030e 100644
+--- a/build/fitnotes-25.1-src/res/menu/activity_training_log.xml
++++ b/build/fitnotes-25.1-src/res/menu/activity_training_log.xml
+@@ -9,6 +9,7 @@
+             <item android:id="@id/one_rep_max_calculator" android:title="@string/one_rep_max_calculator_title_short" />
+             <item android:id="@id/set_calculator" android:title="@string/set_calculator" />
+             <item android:id="@id/plate_calculator" android:title="@string/plate_calculator" />
++            <item android:id="@id/youtube_search" android:title="@string/youtube_search" />
+         </menu>
+     </item>
+ </menu>
+diff --git a/build/fitnotes-25.1-src/res/values/ids.xml b/build/fitnotes-25.1-src/res/values/ids.xml
+index d4f9c66..6d937f7 100644
+--- a/build/fitnotes-25.1-src/res/values/ids.xml
++++ b/build/fitnotes-25.1-src/res/values/ids.xml
+@@ -1139,4 +1139,5 @@
+     <id name="workout_timer_duration_container" />
+     <id name="workout_timer_duration_edit_text" />
+     <id name="workout_timer_notification_chronometer" />
++    <id name="youtube_search" />
+ </resources>
+diff --git a/build/fitnotes-25.1-src/res/values/strings.xml b/build/fitnotes-25.1-src/res/values/strings.xml
+index 56b5a4e..dc94903 100644
+--- a/build/fitnotes-25.1-src/res/values/strings.xml
++++ b/build/fitnotes-25.1-src/res/values/strings.xml
+@@ -1257,4 +1257,5 @@ The end time currently recorded for this workout will be cleared."</string>
+     <string name="workouts">Workouts</string>
+     <string name="yes">Yes</string>
+     <string name="yesterday">YESTERDAY</string>
++    <string name="youtube_search">Search YouTube</string>
+ </resources>
+diff --git a/build/fitnotes-25.1-src/smali/com/github/jamesgay/fitnotes/feature/exercise/workout/TrainingLogActivity.smali b/build/fitnotes-25.1-src/smali/com/github/jamesgay/fitnotes/feature/exercise/workout/TrainingLogActivity.smali
+index 9e47033..fa270a8 100644
+--- a/build/fitnotes-25.1-src/smali/com/github/jamesgay/fitnotes/feature/exercise/workout/TrainingLogActivity.smali
++++ b/build/fitnotes-25.1-src/smali/com/github/jamesgay/fitnotes/feature/exercise/workout/TrainingLogActivity.smali
+@@ -3224,6 +3224,41 @@
+     return-void
+ .end method
+ 
++.method private y1()V
++    .locals 3
++
++    iget-object v0, p0, Lcom/github/jamesgay/fitnotes/feature/exercise/workout/TrainingLogActivity;->x:Lcom/github/jamesgay/fitnotes/model/Exercise;
++
++    if-eqz v0, :cond_0
++
++    invoke-virtual {v0}, Lcom/github/jamesgay/fitnotes/model/Exercise;->getName()Ljava/lang/String;
++
++    move-result-object v0
++
++    invoke-static {v0}, Landroid/net/Uri;->encode(Ljava/lang/String;)Ljava/lang/String;
++
++    move-result-object v0
++
++    new-instance v1, Ljava/lang/StringBuilder;
++
++    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
++
++    const-string v2, "https://www.youtube.com/results?search_query="
++
++    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
++
++    invoke-virtual {v1, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
++
++    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
++
++    move-result-object v0
++
++    invoke-static {p0, v0}, Lcom/github/jamesgay/fitnotes/util/K;->x(Landroid/content/Context;Ljava/lang/String;)Z
++
++    :cond_0
++    return-void
++.end method
++
+ .method private x1()V
+     .locals 1
+ 
+@@ -4808,6 +4843,12 @@
+     :sswitch_5
+     invoke-direct {p0}, Lcom/github/jamesgay/fitnotes/feature/exercise/workout/TrainingLogActivity;->n1()V
+ 
++    goto :goto_yt
++
++    :sswitch_yt
++    invoke-direct {p0}, Lcom/github/jamesgay/fitnotes/feature/exercise/workout/TrainingLogActivity;->y1()V
++
++    :goto_yt
+     .line 42
+     .line 43
+     .line 44
+@@ -4831,6 +4872,7 @@
+         0x7f090379 -> :sswitch_2
+         0x7f0903a7 -> :sswitch_1
+         0x7f0903c8 -> :sswitch_0
++        0x7f090473 -> :sswitch_yt
+     .end sparse-switch
+ .end method
+ 
