@@ -103,7 +103,7 @@ id_of() { basename "$1" | cut -d- -f1; }
 GROUP_PATCHES_compact="001 002"
 GROUP_PATCHES_communicator="001 002 003 004 005 006"
 GROUP_PATCHES_youtube="007"
-GROUP_PATCHES_haptics="008"
+GROUP_PATCHES_haptics="008 009"
 MOD_GROUPS=(compact communicator youtube haptics)
 
 SELECTED=()

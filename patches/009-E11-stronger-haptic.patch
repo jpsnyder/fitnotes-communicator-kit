@@ -1,0 +1,13 @@
+diff --git a/build/fitnotes-25.1-src/smali/D0/a$b$a.smali b/build/fitnotes-25.1-src/smali/D0/a$b$a.smali
+index 174656d..b71af91 100644
+--- a/build/fitnotes-25.1-src/smali/D0/a$b$a.smali
++++ b/build/fitnotes-25.1-src/smali/D0/a$b$a.smali
+@@ -43,7 +43,7 @@
+ .method public onClick(Landroid/view/View;)V
+     .locals 1
+ 
+-    const/4 v0, 0x4
++    const/4 v0, 0x3
+ 
+     invoke-virtual {p1, v0}, Landroid/view/View;->performHapticFeedback(I)Z
+ 

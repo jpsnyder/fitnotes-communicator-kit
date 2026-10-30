@@ -56,7 +56,7 @@ by **named group** — not per-patch, and not arbitrary. `build.sh` accepts
 | `compact` | 001–002 | sizes + spacing diet only; every layout detail stays stock |
 | `communicator` | 001–006 | the compact near-square Track screen + restyle (includes `compact`) |
 | `youtube` | 007 | the "Search YouTube" overflow item; independent of any layout |
-| `haptics` | 008 | a light tick (CLOCK_TICK) on every +/- stepper tap; tap-only — long-press auto-repeat stays silent; independent of any layout |
+| `haptics` | 008–009 | a KEYBOARD_PRESS tick on every +/- stepper tap (009 = strength tuned by on-device A/B); tap-only — long-press auto-repeat stays silent; independent of any layout |
 
 - default (`MODS` unset, or `all`) applies everything
 - combinations work freely: `MODS="youtube haptics"`, `MODS="compact youtube"`, `MODS="communicator youtube"`…
