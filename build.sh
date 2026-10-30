@@ -138,7 +138,9 @@ else
 fi
 echo "mods: $KIND (patches: ${#SELECTED[@]}/${#ALL_PATCHES[@]})"
 
-SUM_BEFORE=$(cd "$DECODE_DIR" && find res -type f -exec sha256sum {} + | sha256sum | cut -d' ' -f1)
+# Guard covers res/ AND smali/ — patch 008 (E11) is smali-only and a res-only
+# sum would call the whole series a vestigial no-op (found 30 Oct 2026).
+SUM_BEFORE=$(cd "$DECODE_DIR" && find res smali -type f -exec sha256sum {} + | sha256sum | cut -d' ' -f1)
 for PATCH_FILE in "${SELECTED[@]}"; do
   [ -s "$PATCH_FILE" ] || fail "$PATCH_FILE is empty — regenerate the series
     with the repo's make-deliverable.sh"
@@ -149,10 +151,10 @@ for PATCH_FILE in "${SELECTED[@]}"; do
   NOTE: series apply strictly in order — partial failures mean the base tree
   is mismatched, not the individual edit."
 done
-SUM_AFTER=$(cd "$DECODE_DIR" && find res -type f -exec sha256sum {} + | sha256sum | cut -d' ' -f1)
+SUM_AFTER=$(cd "$DECODE_DIR" && find res smali -type f -exec sha256sum {} + | sha256sum | cut -d' ' -f1)
 [ "$SUM_BEFORE" != "$SUM_AFTER" ] || fail "patches applied cleanly but changed
-  nothing under res/ — an empty or vestigial series. This silent no-op build is
-  exactly what we must never ship. Report to the patch author."
+  nothing under res/ or smali/ — an empty or vestigial series. This silent
+  no-op build is exactly what we must never ship. Report to the patch author."
 
 # ---- step 5: rebuild --------------------------------------------------------
 step "5. rebuild (tested at ~5s)"
