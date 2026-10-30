@@ -16,20 +16,32 @@ inputs, secondary action left):
 
 ![Before and after: stock FitNotes Track vs the modded Track](assets/track-before-after.png)
 
-## What changes
+## Mods
 
-With the default build (every group applied):
-- sizes + spacing diet: tighter paddings, smaller numerals, capped steppers
-  → **`compact`**
-- WEIGHT/REPS share one side-by-side row; the history list moves above the
-  input row so the inputs pin to the window bottom → **`communicator`**
-- secondary action goes left, CLEAR dimmed gray; palette otherwise stock
-  → **`communicator`**
-- Track toolbar overflow gains **"Search YouTube"** — opens a YouTube search
-  for that exercise's name, built at runtime (renames/new exercises just
-  work; also works on an unpatched stock layout) → **`youtube`**
-- planned but **not in this series yet**: auto-mark sets complete on
-  save/update
+Checklist of the kit's mods — every checked box ships in this patch series;
+unchecked ones are planned with no patch yet.
+
+- [x] **Sizes + spacing diet** — paddings 10→6 / 20→10 / 5→3, numerals
+  32→26sp, steppers capped at 40dp touch — patches `001+002` → `compact`
+- [x] **Side-by-side input row** — WEIGHT/REPS share one 50/50 row; single
+  fields stay full width (time falls back full-width below) — patch `003`
+  → `communicator`
+- [x] **Inputs at the window bottom** — the history list moves above the
+  input row (sets at top), so inputs pin to the window bottom — patch `004`
+  → `communicator`
+- [x] **Button order + gray CLEAR** — secondary action goes left, CLEAR
+  dimmed `#363B42`; palette otherwise stock — patch `005` → `communicator`
+- [x] **Stepper glyph shrink** — smaller ± ink, touch targets keep 40dp —
+  patch `006` → `communicator`
+- [x] **Search YouTube** — overflow item opens a YouTube search for the
+  exercise's name, built at runtime (renames/new exercises just work;
+  works on any layout) — patch `007` → `youtube`
+- [ ] auto-mark sets complete on save/update
+- [ ] swipe-to-adjust field values
+- [ ] keyboard focus chain
+- [ ] Enter-to-save
+- [ ] hardware-keyboard shortcuts
+- [ ] stepper haptic feedback
 
 ![Track screen overflow menu: calculators + Search YouTube](assets/track-youtube-menu.png)
 
