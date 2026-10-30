@@ -18,9 +18,6 @@ inputs, secondary action left):
 
 ## Mods
 
-Checklist of the kit's mods — every checked box ships in this patch series;
-unchecked ones are planned with no patch yet.
-
 - [x] **Sizes + spacing diet** — paddings 10→6 / 20→10 / 5→3, numerals
   32→26sp, steppers capped at 40dp touch — patches `001+002` → `compact`
 - [x] **Side-by-side input row** — WEIGHT/REPS share one 50/50 row; single
