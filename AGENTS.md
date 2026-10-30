@@ -92,6 +92,10 @@ Present the user with:
 - FitNotes opens; TRACK tab input row shows WEIGHT and REPS side by side.
 - History list hugs the input row (bottom-pinned), newest set nearest it.
 - Data restored: open any past date and confirm sets are present.
+- Track screen → toolbar ⋮ overflow: "Search YouTube" is listed under the
+  three calculators; tapping it opens YouTube (client or browser) with the
+  exercise's name pre-filled as the search query. This item also exists on
+  an unpatched tree (it is patch `007-*`) — it works on any layout.
 
 ## Troubleshooting
 

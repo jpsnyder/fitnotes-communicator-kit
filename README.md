@@ -19,9 +19,15 @@ inputs, secondary action left):
 - input row compacted (WEIGHT/REPS side-by-side, smaller steppers + numerals)
 - history list pins to the bottom, newest set nearest the inputs
 - tighter global spacing; Progression-style dark restyle
+- Track toolbar overflow gains **"Search YouTube"** — opens a YouTube search
+  for that exercise's name, built at runtime (renames/new exercises just
+  work; also works on an unpatched stock layout)
 - (optional, conditional) sets auto-mark complete on save/update
 
-See `patches/*.patch` for every hunk — all plain XML, human-readable.
+![Track screen overflow menu: calculators + Search YouTube](assets/track-youtube-menu.png)
+
+See `patches/*.patch` for every hunk — plain XML (+ a little smali for the
+YouTube wiring), human-readable.
 
 ## Quick start (humans)
 ```sh
