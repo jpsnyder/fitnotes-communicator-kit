@@ -1,0 +1,135 @@
+diff --git a/build/fitnotes-25.1-src/smali/com/github/jamesgay/fitnotes/mod/RoutineCommenter.smali b/build/fitnotes-25.1-src/smali/com/github/jamesgay/fitnotes/mod/RoutineCommenter.smali
+new file mode 100644
+index 0000000..25d9d9a
+--- /dev/null
++++ b/build/fitnotes-25.1-src/smali/com/github/jamesgay/fitnotes/mod/RoutineCommenter.smali
+@@ -0,0 +1,99 @@
++.class public Lcom/github/jamesgay/fitnotes/mod/RoutineCommenter;
++.super Ljava/lang/Object;
++.source "RoutineCommenter.java (E13 mod)"
++
++
++# E13: auto WorkoutComment on routine "Log All".
++#
++# Call site: w1/Z.i4() success path (RoutineSectionExerciseSetSelectionDialogFragment)
++# passes (Context, List<TrainingLog> created rows, routine_section_id). The id is > 0
++# only when the dialog was opened by the LOG ALL button (w1/Z;->k4); single-exercise
++# selection dialogs (w1/Z;->l4) leave it 0 and are ignored here.
++#
++# Behaviour: comment text = the routine day (RoutineSection) name. Skipped silently
++# when that workout date already has ANY WorkoutComment row - manual comments and
++# migrated day notes are never overwritten.
++# Table/API anchors (25.1 decode): X/N0 = WorkoutCommentTable (I(date) exists-check,
++# K(insert)); X/j0 = RoutineSectionTable (K(J) row by id); WorkoutComment model gets
++# setDate/setComment; dates come off training_log rows created for App.b()'s date.
++
++
++.method public static a(Landroid/content/Context;Ljava/util/List;J)V
++    .locals 5
++
++    # -- LOG ALL gate: routine_section_id must be > 0 --
++    const-wide/16 v0, 0x0
++
++    cmp-long v2, p2, v0
++    if-lez v2, :cond_ret
++
++    # -- list sanity --
++    if-eqz p1, :cond_ret
++
++    invoke-interface {p1}, Ljava/util/List;->isEmpty()Z
++    move-result v2
++    if-eqz v2, :cond_0
++    return-void
++
++    # -- date of the created workout: first row (all rows share one date) --
++    :cond_0
++    const/4 v2, 0x0
++    invoke-interface {p1, v2}, Ljava/util/List;->get(I)Ljava/lang/Object;
++    move-result-object v2
++    check-cast v2, Lcom/github/jamesgay/fitnotes/model/TrainingLog;
++
++    invoke-virtual {v2}, Lcom/github/jamesgay/fitnotes/model/TrainingLog;->getDate()Ljava/lang/String;
++    move-result-object v2
++
++    invoke-static {v2}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
++    move-result v3
++    if-eqz v3, :cond_1
++    return-void
++
++    # -- skip when the date already has a WorkoutComment (never clobber) --
++    :cond_1
++    new-instance v0, LX/N0;
++
++    invoke-direct {v0, p0}, LX/N0;-><init>(Landroid/content/Context;)V
++
++    invoke-virtual {v0, v2}, LX/N0;->I(Ljava/lang/String;)Lcom/github/jamesgay/fitnotes/util/Z;
++    move-result-object v3
++
++    invoke-virtual {v3}, Lcom/github/jamesgay/fitnotes/util/Z;->c()Z
++    move-result v3
++    if-eqz v3, :cond_2
++    return-void
++
++    # -- day (section) name from routine_section_id --
++    :cond_2
++    new-instance v3, LX/j0;
++
++    invoke-direct {v3, p0}, LX/j0;-><init>(Landroid/content/Context;)V
++
++    invoke-virtual {v3, p2, p3}, LX/j0;->K(J)Lcom/github/jamesgay/fitnotes/model/RoutineSection;
++    move-result-object v3
++    if-eqz v3, :cond_ret
++
++    invoke-virtual {v3}, Lcom/github/jamesgay/fitnotes/model/RoutineSection;->getName()Ljava/lang/String;
++    move-result-object v3
++
++    invoke-static {v3}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
++    move-result v4
++    if-eqz v4, :cond_3
++    return-void
++
++    # -- insert WorkoutComment(date, day name) --
++    :cond_3
++    new-instance v4, Lcom/github/jamesgay/fitnotes/model/WorkoutComment;
++
++    invoke-direct {v4}, Lcom/github/jamesgay/fitnotes/model/WorkoutComment;-><init>()V
++
++    invoke-virtual {v4, v2}, Lcom/github/jamesgay/fitnotes/model/WorkoutComment;->setDate(Ljava/lang/String;)V
++
++    invoke-virtual {v4, v3}, Lcom/github/jamesgay/fitnotes/model/WorkoutComment;->setComment(Ljava/lang/String;)V
++
++    invoke-virtual {v0, v4}, LX/N0;->K(Lcom/github/jamesgay/fitnotes/model/WorkoutComment;)Lcom/github/jamesgay/fitnotes/model/OperationResult;
++
++    :cond_ret
++    return-void
++.end method
+\ No newline at end of file
+diff --git a/build/fitnotes-25.1-src/smali/w1/Z.smali b/build/fitnotes-25.1-src/smali/w1/Z.smali
+index ef09e74..2d52e44 100644
+--- a/build/fitnotes-25.1-src/smali/w1/Z.smali
++++ b/build/fitnotes-25.1-src/smali/w1/Z.smali
+@@ -137,7 +137,7 @@
+ .end method
+ 
+ .method private i4(Ljava/util/List;)V
+-    .locals 2
++    .locals 4
+     .annotation system Ldalvik/annotation/Signature;
+         value = {
+             "(",
+@@ -236,6 +236,15 @@
+     .line 44
+     .line 45
+     :cond_1
++    # E13: auto WorkoutComment with the day name on confirmed "Log All"
++    invoke-virtual {p0}, Landroidx/fragment/app/Fragment;->y()Landroidx/fragment/app/e;
++
++    move-result-object v1
++
++    iget-wide v2, p0, Lw1/Z;->G0:J
++
++    invoke-static {v1, p1, v2, v3}, Lcom/github/jamesgay/fitnotes/mod/RoutineCommenter;->a(Landroid/content/Context;Ljava/util/List;J)V
++
+     new-instance v1, Lw1/Y;
+ 
+     .line 46

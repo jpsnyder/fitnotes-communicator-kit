@@ -56,7 +56,7 @@ root — use a `toolbox`/`distrobox` container (Fedora base is fine):
 bash build.sh "/absolute/path/to/FitNotes - Gym Workout Log_25.1_APKPure.apk"
 ```
 Optional subset builds: `MODS="compact"` (padding+type diet only), `MODS="communicator"`,
-`MODS="youtube"`, `MODS="haptics"`, or any combo of these groups — see the group table inside
+`MODS="youtube"`, `MODS="haptics"`, `MODS="routinecomment"`, or any combo of these groups — see the group table inside
 `build.sh`. Patches within a group chain and are never individually selectable;
 only these vetted groups/combos are accepted, everything else refuses loudly.
 The script performs everything below itself and is the source of truth for
@@ -100,6 +100,9 @@ Present the user with:
   three calculators; tapping it opens YouTube (client or browser) with the
   exercise's name pre-filled as the search query. This item also exists on
   an unpatched tree (it is patch `007-*`) — it works on any layout.
+- If the build included `routinecomment` (010): pick a routine day → **LOG ALL**
+  → confirm → the History/Track view for that date shows the day's name as the
+  workout comment. A date that already has a comment never gets a second one.
 
 ## Troubleshooting
 

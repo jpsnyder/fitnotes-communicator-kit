@@ -57,6 +57,7 @@ by **named group** — not per-patch, and not arbitrary. `build.sh` accepts
 | `communicator` | 001–006 | the compact near-square Track screen + restyle (includes `compact`) |
 | `youtube` | 007 | the "Search YouTube" overflow item; independent of any layout |
 | `haptics` | 008–009 | a KEYBOARD_PRESS tick on every +/- stepper tap (009 = strength tuned by on-device A/B); tap-only — long-press auto-repeat stays silent; independent of any layout |
+| `routinecomment` | 010 | confirming a routine's **Log All** auto-adds a Workout comment with the day's name (e.g. `PUSH1`); skipped when that date already has a comment — independent of any layout |
 
 - default (`MODS` unset, or `all`) applies everything
 - combinations work freely: `MODS="youtube haptics"`, `MODS="compact youtube"`, `MODS="communicator youtube"`…

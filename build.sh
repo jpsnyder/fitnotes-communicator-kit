@@ -93,8 +93,12 @@ id_of() { basename "$1" | cut -d- -f1; }
 #                           layout chain (touch-only disjoint files); verified
 #                           standalone 30 Oct 2026.
 #   haptics      = 008      E11 CLOCK_TICK tick on the shared stepper click
-#                           listener (D0/a$b$a) — every +/- tap app-wide;
+#                           (D0/a$b$a) — every +/- tap app-wide;
 #                           disjoint smali, hunks anchor on pristine.
+#   routinecomment = 010    E13 auto WorkoutComment (day name) when a routine
+#                           "Log All" is confirmed; skips dates that already
+#                           have a comment. New smali file + one anchored hunk
+#                           in w1/Z.i4; disjoint from every other group.
 # Group sets may overlap: MODS="compact communicator" = communicator's set.
 # Every selectable SET below was proven by a scratch build before being baked
 # in (compact 30 Oct 2026). New edits: join a group if their hunks depend on
@@ -104,7 +108,8 @@ GROUP_PATCHES_compact="001 002"
 GROUP_PATCHES_communicator="001 002 003 004 005 006"
 GROUP_PATCHES_youtube="007"
 GROUP_PATCHES_haptics="008 009"
-MOD_GROUPS=(compact communicator youtube haptics)
+GROUP_PATCHES_routinecomment="010"
+MOD_GROUPS=(compact communicator youtube haptics routinecomment)
 
 SELECTED=()
 KIND="all groups (default)"
