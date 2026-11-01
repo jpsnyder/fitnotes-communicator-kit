@@ -93,9 +93,16 @@ install the built APK → in-app Restore. (Uninstalling wipes the local database
 that export is your only safety net. Details: `AGENTS.md`.)
 
 ## Delegating to an AI agent
-Give an agent this whole folder and say: *follow AGENTS.md in here*. It pins the
-exact APK (sha256 in `manifest.txt`), verifies every step, and refuses to touch
-your device without your confirmation.
+Paste this to your agent (the AGENTS.md it fetches enforces the
+ask-you-first rule, so nothing here goes stale):
+
+```text
+Clone https://github.com/jpsnyder/fitnotes-communicator-kit and follow the
+AGENTS.md in it to rebuild + install my own copy of FitNotes 25.1; if I
+don't have its pinned APK, AGENTS.md shows you how to fetch + verify it.
+```
+
+Hand an agent this checked-out folder instead and it can skip the clone.
 
 ## Files
 | file | purpose |

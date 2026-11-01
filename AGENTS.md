@@ -67,10 +67,33 @@ options to the user and ask which they want:
 - one or more named groups from that table, combined freely
   (`MODS="group1 group2"`).
 
-Do not proceed until they have picked. Record the answer for step 2; if they
+Do not proceed until they have picked. Record the answer for step 3; if they
 say "everything", that is the default — confirm it once anyway.
 
-### 2. Run the build
+### 2. Get the pinned APK (only if the user doesn't have one)
+Ask the user first — the pinned build is the
+"FitNotes - Gym Workout Log_25.1_APKPure.apk" file (identity = the
+`SOURCE_APK_SHA256` in `manifest.txt`; if they have it, use their path in
+step 3). If not, fetch and verify before anything else — this recipe was
+tested 1 Nov 2026 and served exactly 25.1, but `?version=latest` serves
+whatever upstream-latest is, so verify fresh EVERY time:
+
+```sh
+curl -L -o pinned.apk "https://d.apkpure.net/b/APK/com.github.jamesgay.fitnotes?version=latest"
+sha256sum pinned.apk
+```
+(Again pinned as `SOURCE_APK_URL` in `manifest.txt`.)
+
+- The hash MUST equal `SOURCE_APK_SHA256` in `manifest.txt`. A mismatch is
+  a STOP (hard rule 1) plus a report — most often upstream moved past 25.1
+  and this URL now serves a newer build. Re-pinning is a maintainer edit
+  to `manifest.txt`, never the installing agent's prerogative, and never a
+  reason to "build anyway": the patches hardcode version-specific ids.
+- If the URL stops returning APK bytes entirely (HTML page, 403/404, CDN
+  reshuffle), stop and ask the user for the file some other way; the
+  sha256 is the only arbiter of identity, wherever the bytes came from.
+
+### 3. Run the build
 ```sh
 MODS="<groups the user chose in step 1>" \
   bash build.sh "/absolute/path/to/FitNotes - Gym Workout Log_25.1_APKPure.apk"
@@ -94,7 +117,7 @@ and is the source of truth for exact commands. Expected milestones, roughly:
 Known signer quirk: uber-apk-signer refuses `-o OUT` together with
 `--overwrite` ("either provide out path or overwrite argument"). Use one.
 
-### 3. Optional device-side pre-checks (with user's consent)
+### 4. Optional device-side pre-checks (with user's consent)
 ```sh
 adb shell dumpsys package com.github.jamesgay.fitnotes | grep -E 'versionName|versionCode'
 # expect: versionName=25.1   versionCode=64
@@ -103,7 +126,7 @@ If the device shows anything other than 25.1/64, that's fine for building —
 the mod is built from the pinned APK regardless of what's installed — but
 flag it to the user so they don't assume their old build's settings carry.
 
-### 4. Hand over to the human (do not automate this)
+### 5. Hand over to the human (do not automate this)
 Present the user with:
 1. `dist/fitnotes-modded-aligned-signed.apk` location
 2. the reminder to make + offload a fresh `.fitnotes` export
@@ -111,7 +134,7 @@ Present the user with:
 4. the Play Protect expectation, and that installs of future patch versions
    must come from the same `keystore/` (backed up offline)
 
-### 5. Post-install verification (user, on device)
+### 6. Post-install verification (user, on device)
 
 Base, any build:
 - FitNotes opens.
