@@ -56,7 +56,7 @@ root — use a `toolbox`/`distrobox` container (Fedora base is fine):
 bash build.sh "/absolute/path/to/FitNotes - Gym Workout Log_25.1_APKPure.apk"
 ```
 Optional subset builds: `MODS="compact"` (padding+type diet only), `MODS="communicator"`,
-`MODS="youtube"`, `MODS="haptics"`, `MODS="routinecomment"`, or any combo of these groups — see the group table inside
+`MODS="youtube"`, `MODS="haptics"`, `MODS="routinecomment"`, `MODS="keepnext"`, or any combo of these groups — see the group table inside
 `build.sh`. Patches within a group chain and are never individually selectable;
 only these vetted groups/combos are accepted, everything else refuses loudly.
 The script performs everything below itself and is the source of truth for
@@ -103,6 +103,12 @@ Present the user with:
 - If the build included `routinecomment` (010): pick a routine day → **LOG ALL**
   → confirm → the History/Track view for that date shows the day's name as the
   workout comment. A date that already has a comment never gets a second one.
+- If the build included `keepnext` (011): with Settings → Auto-Select Next Set
+  ON, open an exercise with pending (routine/copied) sets → the first one
+  prefills the fields (stock). Update it (change weight/reps) → the next set
+  auto-highlights but the fields KEEP your just-saved values; press UPDATE to
+  write them onto it. Tap a row manually → that row's values load (stock).
+  Auto-Select Next Set OFF → completely stock behavior.
 
 ## Troubleshooting
 

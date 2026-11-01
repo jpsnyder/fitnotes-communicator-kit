@@ -58,6 +58,7 @@ by **named group** — not per-patch, and not arbitrary. `build.sh` accepts
 | `youtube` | 007 | the "Search YouTube" overflow item; independent of any layout |
 | `haptics` | 008–009 | a KEYBOARD_PRESS tick on every +/- stepper tap (009 = strength tuned by on-device A/B); tap-only — long-press auto-repeat stays silent; independent of any layout |
 | `routinecomment` | 010 | confirming a routine's **Log All** auto-adds a Workout comment with the day's name (e.g. `PUSH1`); skipped when that date already has a comment — independent of any layout |
+| `keepnext` | 011 | with **Auto-Select Next Set** ON: after you save/update a set, the next auto-highlighted set keeps your just-saved weight/reps in the input fields instead of showing that set's values (an empty form — first entry, or after a superset auto-jump — still prefills stock); pref OFF = exactly stock |
 
 - default (`MODS` unset, or `all`) applies everything
 - combinations work freely: `MODS="youtube haptics"`, `MODS="compact youtube"`, `MODS="communicator youtube"`…

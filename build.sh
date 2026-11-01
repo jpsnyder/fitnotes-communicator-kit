@@ -99,6 +99,13 @@ id_of() { basename "$1" | cut -d- -f1; }
 #                           "Log All" is confirmed; skips dates that already
 #                           have a comment. New smali file + one anchored hunk
 #                           in w1/Z.i4; disjoint from every other group.
+#   keepnext     = 011      E14 Auto-Select Next Set keeps the entries you just
+#                           saved in the input fields instead of prefilling the
+#                           next set (pref-gated: only when the pref is ON,
+#                           only inside V0/q's K2 auto-select; empty form --
+#                           first entry / after a superset auto-jump -- still
+#                           prefills stock). Virgin file V0/q.smali;
+#                           verified standalone 1 Nov 2026.
 # Group sets may overlap: MODS="compact communicator" = communicator's set.
 # Every selectable SET below was proven by a scratch build before being baked
 # in (compact 30 Oct 2026). New edits: join a group if their hunks depend on
@@ -109,7 +116,8 @@ GROUP_PATCHES_communicator="001 002 003 004 005 006"
 GROUP_PATCHES_youtube="007"
 GROUP_PATCHES_haptics="008 009"
 GROUP_PATCHES_routinecomment="010"
-MOD_GROUPS=(compact communicator youtube haptics routinecomment)
+GROUP_PATCHES_keepnext="011"
+MOD_GROUPS=(compact communicator youtube haptics routinecomment keepnext)
 
 SELECTED=()
 KIND="all groups (default)"
