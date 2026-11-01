@@ -23,6 +23,10 @@ text diffs applied to a tree the user's APK decodes to.
    without explicit user confirmation** — see the data-safety gate below.
 4. If any step's expected output (printed after each command here) does not
    appear, stop and interpret per the troubleshooting table before retrying.
+5. **Mods are the user's choice.** Before building, ask which mods they want
+   (step 1). Never choose for them, and never hardcode group names from
+   memory — the current list lives in `README.md` under "Picking your mods";
+   read it every time, mods ship and change without this file being updated.
 
 ## Data-safety gate — read before any install step
 
@@ -51,16 +55,31 @@ and `sha256sum`. On Fedora Silverblue/Atomic hosts there is no writable system
 root — use a `toolbox`/`distrobox` container (Fedora base is fine):
 `toolbox create fn-mod; toolbox enter fn-mod; sudo dnf install -y java-21-openjdk-devel patch`.
 
-### 1. Run the build
+### 1. Ask the user which mods they want
+Mod selection is by **named group** — never a bare patch number, never a
+guess. Open `README.md`, read **"Picking your mods"** (its group table is the
+one source of truth: the current group names, what each gives you, and which
+patches belong to which group — it changes as mods ship, so read it fresh
+every time rather than relying on anything written here), then present the
+options to the user and ask which they want:
+
+- the default (build all mods), or
+- one or more named groups from that table, combined freely
+  (`MODS="group1 group2"`).
+
+Do not proceed until they have picked. Record the answer for step 2; if they
+say "everything", that is the default — confirm it once anyway.
+
+### 2. Run the build
 ```sh
-bash build.sh "/absolute/path/to/FitNotes - Gym Workout Log_25.1_APKPure.apk"
+MODS="<groups the user chose in step 1>" \
+  bash build.sh "/absolute/path/to/FitNotes - Gym Workout Log_25.1_APKPure.apk"
 ```
-Optional subset builds: `MODS="compact"` (padding+type diet only), `MODS="communicator"`,
-`MODS="youtube"`, `MODS="haptics"`, `MODS="routinecomment"`, `MODS="keepnext"`, or any combo of these groups — see the group table inside
-`build.sh`. Patches within a group chain and are never individually selectable;
-only these vetted groups/combos are accepted, everything else refuses loudly.
-The script performs everything below itself and is the source of truth for
-exact commands. Expected milestones, roughly:
+(Omit `MODS` entirely for the default/all build.) Patches within a group
+chain and are never individually selectable; only the vetted groups from
+README's table — and their combos — are accepted, everything else refuses
+loudly before touching anything. The script performs everything below itself
+and is the source of truth for exact commands. Expected milestones, roughly:
 
 | stage | telltale line | if missing |
 |---|---|---|
@@ -75,7 +94,7 @@ exact commands. Expected milestones, roughly:
 Known signer quirk: uber-apk-signer refuses `-o OUT` together with
 `--overwrite` ("either provide out path or overwrite argument"). Use one.
 
-### 2. Optional device-side pre-checks (with user's consent)
+### 3. Optional device-side pre-checks (with user's consent)
 ```sh
 adb shell dumpsys package com.github.jamesgay.fitnotes | grep -E 'versionName|versionCode'
 # expect: versionName=25.1   versionCode=64
@@ -84,7 +103,7 @@ If the device shows anything other than 25.1/64, that's fine for building —
 the mod is built from the pinned APK regardless of what's installed — but
 flag it to the user so they don't assume their old build's settings carry.
 
-### 3. Hand over to the human (do not automate this)
+### 4. Hand over to the human (do not automate this)
 Present the user with:
 1. `dist/fitnotes-modded-aligned-signed.apk` location
 2. the reminder to make + offload a fresh `.fitnotes` export
@@ -92,23 +111,29 @@ Present the user with:
 4. the Play Protect expectation, and that installs of future patch versions
    must come from the same `keystore/` (backed up offline)
 
-### 4. Post-install verification (user, on device)
-- FitNotes opens; TRACK tab input row shows WEIGHT and REPS side by side.
-- History list hugs the input row (bottom-pinned), newest set nearest it.
+### 5. Post-install verification (user, on device)
+
+Base, any build:
+- FitNotes opens.
 - Data restored: open any past date and confirm sets are present.
-- Track screen → toolbar ⋮ overflow: "Search YouTube" is listed under the
-  three calculators; tapping it opens YouTube (client or browser) with the
-  exercise's name pre-filled as the search query. This item also exists on
-  an unpatched tree (it is patch `007-*`) — it works on any layout.
-- If the build included `routinecomment` (010): pick a routine day → **LOG ALL**
-  → confirm → the History/Track view for that date shows the day's name as the
-  workout comment. A date that already has a comment never gets a second one.
-- If the build included `keepnext` (011): with Settings → Auto-Select Next Set
-  ON, open an exercise with pending (routine/copied) sets → the first one
-  prefills the fields (stock). Update it (change weight/reps) → the next set
-  auto-highlights but the fields KEEP your just-saved values; press UPDATE to
-  write them onto it. Tap a row manually → that row's values load (stock).
-  Auto-Select Next Set OFF → completely stock behavior.
+
+Then verify every mod the build included — driven entirely by README; this
+file deliberately names no mods, so never verify from memory or from here:
+
+1. Re-read the "Picking your mods" table in README.md (again — it is the
+   live list, and it changes as mods ship).
+2. Form the checklist from the rows of the groups chosen in step 1: each
+   row's description IS the test recipe. Whatever trigger it names (an
+   overflow item, a confirm dialog, a settings toggle), have the user
+   perform it on-device and confirm the promised result — including the
+   negative cases the row itself states (e.g. a "skipped when…" clause).
+3. For rows with visual promises, compare the Track screen against
+   README.md's before/after screenshot.
+4. Walk through every chosen group — none skipped — and report the outcome
+   of each check to the user.
+5. Any mismatch with a row's promise: stop, report the failing check in
+   that row's own wording, and consult the Troubleshooting table below.
+   Do not "fix" anything by uninstalling/reinstalling again.
 
 ## Troubleshooting
 
