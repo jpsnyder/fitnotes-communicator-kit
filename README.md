@@ -33,12 +33,21 @@ inputs, secondary action left):
 - [x] **Search YouTube** — overflow item opens a YouTube search for the
   exercise's name, built at runtime (renames/new exercises just work;
   works on any layout) — patch `007` → `youtube`
+- [x] **Stepper haptic feedback** — a tick on every +/- tap (KEYBOARD_PRESS,
+  tuned by on-device A/B); long-press auto-repeat stays silent — patches
+  `008+009` → `haptics`
+- [x] **Log-All day comment** — confirming a routine's LOG ALL auto-adds a
+  workout comment with the day's name (e.g. `PUSH1`); skipped when that date
+  already has a comment — patch `010` → `routinecomment`
+- [x] **Keep inputs for the next set** — with Auto-Select Next Set ON, the
+  next auto-highlighted set keeps your just-saved weight/reps so UPDATE
+  repeats the combo down the pending list; an empty form still prefills
+  stock — patch `011` → `keepnext`
 - [ ] auto-mark sets complete on save/update
 - [ ] swipe-to-adjust field values
 - [ ] keyboard focus chain
 - [ ] Enter-to-save
 - [ ] hardware-keyboard shortcuts
-- [x] stepper haptic feedback (E11 — tick on the one shared click listener; long-press auto-repeat intentionally silent)
 
 ![Track screen overflow menu: calculators + Search YouTube](assets/track-youtube-menu.png)
 
